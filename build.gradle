@@ -22,16 +22,25 @@ micronaut {
 
 dependencies {
     annotationProcessor("org.projectlombok:lombok")
+    testAnnotationProcessor("org.projectlombok:lombok")
     implementation("io.micronaut:micronaut-validation")
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-http-client")
     compileOnly("org.projectlombok:lombok")
+
+    testCompileOnly("org.projectlombok:lombok")
     runtimeOnly("ch.qos.logback:logback-classic")
 }
 
 
 application {
     mainClass.set("com.example.Application")
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+    options.fork = true
+    options.forkOptions.jvmArgs << '-Dmicronaut.openapi.views.spec=rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop'
 }
 
 java {

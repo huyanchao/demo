@@ -1,9 +1,9 @@
 package com.example;
 
-import io.micronaut.runtime.EmbeddedApplication;
+import com.example.client.AreaClient;
+import com.example.model.AreaModel;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
 
 import javax.inject.Inject;
 
@@ -11,11 +11,15 @@ import javax.inject.Inject;
 public class DemoTest {
 
     @Inject
-    EmbeddedApplication<?> application;
+    AreaClient areaClient;
 
     @Test
     void testItWorks() {
-        Assertions.assertTrue(application.isRunning());
+        String keywords = "中国";
+        String subdistrict = "3";
+        String key = "2ce5e29515cac0e67b0fd0faf00c3395";
+        AreaModel district = areaClient.district(keywords, subdistrict, key);
+        System.out.println(district.toString());
     }
 
 }
